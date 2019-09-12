@@ -1,6 +1,7 @@
 package com.namlu.todolistapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -8,7 +9,7 @@ import com.namlu.todolistapp.adapters.TodoRecyclerAdapter
 import com.namlu.todolistapp.models.Todo
 
 
-class TodoListActivity : AppCompatActivity() {
+class TodoListActivity : AppCompatActivity(), TodoRecyclerAdapter.OnTodoListener {
 
     lateinit var recyclerView: RecyclerView
     lateinit var todoRecyclerAdapter: TodoRecyclerAdapter
@@ -33,10 +34,14 @@ class TodoListActivity : AppCompatActivity() {
         title = resources.getString(R.string.app_name)
     }
 
+    override fun onTodoClick(position: Int) {
+        Log.d(TAG, "onTodoClick: clicked #$position")
+    }
+
     private fun initRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
-        todoRecyclerAdapter = TodoRecyclerAdapter(todos)
+        todoRecyclerAdapter = TodoRecyclerAdapter(todos, this)
         recyclerView.adapter = todoRecyclerAdapter
     }
 
