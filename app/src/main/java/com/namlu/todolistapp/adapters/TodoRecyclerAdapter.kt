@@ -9,9 +9,9 @@ import com.namlu.todolistapp.R
 import com.namlu.todolistapp.models.Todo
 import kotlinx.android.synthetic.main.todo_list_item.view.*
 
-class TodoRecyclerAdapter : RecyclerView.Adapter<TodoRecyclerAdapter.TodoViewHolder>() {
+class TodoRecyclerAdapter constructor(todos: List<Todo>): RecyclerView.Adapter<TodoRecyclerAdapter.TodoViewHolder>() {
 
-    private val todos: List<Todo> = ArrayList()
+    private var todoItems: List<Todo> = todos
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder(
@@ -20,11 +20,11 @@ class TodoRecyclerAdapter : RecyclerView.Adapter<TodoRecyclerAdapter.TodoViewHol
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        return holder.bind(todos[position])
+        return holder.bind(todoItems[position])
     }
 
     override fun getItemCount(): Int {
-        return todos.size
+        return todoItems.size
     }
 
     class TodoViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
