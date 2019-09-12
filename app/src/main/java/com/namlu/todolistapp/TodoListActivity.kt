@@ -23,9 +23,14 @@ class TodoListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_list)
 
+        // recyclerview stuff
         recyclerView = this.findViewById(R.id.recycler_todo)
         initRecyclerView()
         addTodos()
+
+        // toolbar stuff
+        setSupportActionBar(findViewById(R.id.toolbar))
+        title = resources.getString(R.string.app_name)
     }
 
     private fun initRecyclerView() {
