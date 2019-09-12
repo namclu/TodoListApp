@@ -9,13 +9,16 @@ import com.namlu.todolistapp.R
 import com.namlu.todolistapp.models.Todo
 import kotlinx.android.synthetic.main.todo_list_item.view.*
 
-class TodoRecyclerAdapter constructor(todos: List<Todo>): RecyclerView.Adapter<TodoRecyclerAdapter.TodoViewHolder>() {
+class TodoRecyclerAdapter constructor(todos: ArrayList<Todo>, onTodoListener: OnTodoListener) :
+    RecyclerView.Adapter<TodoRecyclerAdapter.TodoViewHolder>() {
 
-    private var todoItems: List<Todo> = todos
+    private val todoItems: ArrayList<Todo> = todos
+    private val onTodoListener: OnTodoListener = onTodoListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.todo_list_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.todo_list_item, parent, false),
+            onTodoListener
         )
     }
 
@@ -27,13 +30,30 @@ class TodoRecyclerAdapter constructor(todos: List<Todo>): RecyclerView.Adapter<T
         return todoItems.size
     }
 
-    class TodoViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class TodoViewHolder constructor(itemView: View, private val onTodoListener: OnTodoListener) :
+        RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+
         private val title: TextView = itemView.text_title
         private val timeStamp: TextView = itemView.text_timestamp
+
+        init {
+            itemView.setOnClickListener(this)
+            onTodoListener
+        }
+
+        // Pass the position of item clicked
+        override fun onClick(v: View?) {
+            onTodoListener.onTodoClick(adapterPosition)
+        }
 
         fun bind(todo: Todo) {
             title.text = todo.title
             timeStamp.text = todo.timestamp
         }
+    }
+
+    interface OnTodoListener {
+        fun onTodoClick(position: Int)
     }
 }
