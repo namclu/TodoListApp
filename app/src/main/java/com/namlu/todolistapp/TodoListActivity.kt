@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.namlu.todolistapp.adapters.TodoRecyclerAdapter
 import com.namlu.todolistapp.models.Todo
+import com.namlu.todolistapp.util.Constants
 
 
 class TodoListActivity : AppCompatActivity(), TodoRecyclerAdapter.OnTodoListener {
@@ -36,6 +37,7 @@ class TodoListActivity : AppCompatActivity(), TodoRecyclerAdapter.OnTodoListener
 
     override fun onTodoClick(position: Int) {
         val intent = Intent(this, TodoDetailsActivity::class.java)
+        intent.putExtra(Constants.SELECTED_TODO_KEY, todos[position])
         startActivity(intent)
     }
 
