@@ -13,13 +13,13 @@
         android:background="?attr/selectableItemBackground"
         android:src="@drawable/ic_arrow_back_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/text_todo_title"
+        app:layout_constraintEnd_toStartOf="@id/text_todo_details_title"
         app:layout_constraintHorizontal_weight="10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_todo_title"
+        android:id="@+id/text_todo_details_title"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
@@ -33,7 +33,7 @@
         tools:text="Todo title" />
 
     <EditText
-        android:id="@+id/edit_todo_title"
+        android:id="@+id/edit_todo_details_title"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"

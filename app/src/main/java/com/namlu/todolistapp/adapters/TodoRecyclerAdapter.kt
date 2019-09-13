@@ -34,8 +34,8 @@ class TodoRecyclerAdapter constructor(todos: ArrayList<Todo>, onTodoListener: On
         RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-        private val title: TextView = itemView.text_title
-        private val timeStamp: TextView = itemView.text_timestamp
+        private val title: TextView = itemView.text_list_item_title
+        private val timeStamp: TextView = itemView.text_list_item_timestamp
 
         init {
             itemView.setOnClickListener(this)
