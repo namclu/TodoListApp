@@ -8,7 +8,7 @@
     android:weightSum="100">
 
     <TextView
-        android:id="@+id/text_title"
+        android:id="@+id/text_list_item_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="70"
@@ -16,7 +16,7 @@
         tools:text="Title" />
 
     <TextView
-        android:id="@+id/text_timestamp"
+        android:id="@+id/text_list_item_timestamp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="30"

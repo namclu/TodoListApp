@@ -31,7 +31,7 @@ class TodoListActivity : AppCompatActivity(), TodoRecyclerAdapter.OnTodoListener
         addTodos()
 
         // toolbar stuff
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar_todo_list))
         title = resources.getString(R.string.app_name)
     }
 
