@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="@dimen/spacing_half">
 
     <ImageButton
-        android:id="@+id/image_mode_group"
+        android:id="@+id/image_button_group"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="?attr/selectableItemBackground"
@@ -25,10 +26,11 @@
         android:gravity="center_vertical"
         android:paddingStart="@dimen/spacing_double"
         android:textSize="@dimen/text_primary"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="85"
-        app:layout_constraintStart_toEndOf="@+id/image_mode_group"
+        app:layout_constraintStart_toEndOf="@+id/image_button_group"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Todo title" />
 
@@ -36,14 +38,17 @@
         android:id="@+id/edit_todo_details_title"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:gravity="center_vertical"
+        android:hint="Edit title"
+        android:inputType="text"
         android:paddingStart="@dimen/spacing_double"
         android:textSize="@dimen/text_primary"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="85"
-        app:layout_constraintStart_toEndOf="@+id/image_mode_group"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Edit title" />
+        app:layout_constraintStart_toEndOf="@+id/image_button_group"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

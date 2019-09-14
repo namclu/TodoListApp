@@ -1,11 +1,11 @@
 package com.namlu.todolistapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.namlu.todolistapp.models.Todo
@@ -19,10 +19,13 @@ class TodoDetailsActivity : AppCompatActivity(),
     private lateinit var editTitle: EditText
     private lateinit var textTitle: TextView
     private lateinit var editContent: EditText
+    private lateinit var imageButtonGroup: ImageButton
+
 
     private lateinit var todo: Todo
     private var isNewTodo = false
     private lateinit var gestureDetector: GestureDetector
+    private var editModeEnabled = false
 
     companion object {
         const val TAG = "TodoDetailsActivity"
@@ -36,6 +39,7 @@ class TodoDetailsActivity : AppCompatActivity(),
         editTitle = findViewById(R.id.edit_todo_details_title)
         textTitle = findViewById(R.id.text_todo_details_title)
         editContent = findViewById(R.id.edit_todo_details)
+        imageButtonGroup = findViewById(R.id.image_button_group)
 
         // Init gesture detection
         gestureDetector = GestureDetector(this, this)
@@ -44,9 +48,10 @@ class TodoDetailsActivity : AppCompatActivity(),
         editContent.setOnTouchListener(this)
 
         // Init an item
-        if (isNewTodo()) {
+        if (getTodoIntent()) {
             // New item, enter Edit mode
             setNewTodoProperties()
+            enableEditMode()
         } else {
             // Existing item, enter View mode
             setTodoProperties()
@@ -83,7 +88,7 @@ class TodoDetailsActivity : AppCompatActivity(),
 
     // Callbacks for GestureDetector.OnDoubleTapListener
     override fun onDoubleTap(e: MotionEvent?): Boolean {
-        Log.d(TAG, "onDoubleTap() fired")
+        enableEditMode()
         return true
     }
 
@@ -95,14 +100,32 @@ class TodoDetailsActivity : AppCompatActivity(),
         return false
     }
 
-    // Checks if we're looking at a new or existing item and sets the flag
-    private fun isNewTodo(): Boolean {
+    // Enable edit mode
+    private fun enableEditMode() {
+        imageButtonGroup.setImageResource(R.drawable.ic_check_black_24dp)
+        editTitle.visibility = View.VISIBLE
+        textTitle.visibility = View.INVISIBLE
+        editModeEnabled = true
+    }
+
+    // Disable edit mode
+    private fun disableEditMode() {
+        imageButtonGroup.setImageResource(R.drawable.ic_arrow_back_black_24dp)
+        editTitle.visibility = View.INVISIBLE
+        textTitle.visibility = View.VISIBLE
+        editModeEnabled = false
+    }
+
+    // Get data for existing item and set flags
+    private fun getTodoIntent(): Boolean {
         if (intent.hasExtra(Constants.SELECTED_TODO_KEY)) {
             // If an existing item, get its data
             todo = intent.getParcelableExtra(Constants.SELECTED_TODO_KEY)
 
+            editModeEnabled = false
             isNewTodo = false
         } else {
+            editModeEnabled = true
             isNewTodo = true
         }
         return isNewTodo
