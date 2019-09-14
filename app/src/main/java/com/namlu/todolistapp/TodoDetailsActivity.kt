@@ -29,24 +29,24 @@ class TodoDetailsActivity : AppCompatActivity() {
         editContent = findViewById(R.id.edit_todo_details)
 
         if (isNewTodo()) {
-            // New item so enter Edit mode
+            // New item, enter Edit mode
             setNewTodoProperties()
         } else {
-            // Not a new item so enter View mode
+            // Existing item, enter View mode
             setTodoProperties()
         }
     }
 
+    // Checks if we're looking at a new or existing item and sets the flag
     private fun isNewTodo(): Boolean {
         if (intent.hasExtra(Constants.SELECTED_TODO_KEY)) {
-            // If item is not new, get its data
+            // If an existing item, get its data
             todo = intent.getParcelableExtra(Constants.SELECTED_TODO_KEY)
 
             isNewTodo = false
         } else {
             isNewTodo = true
         }
-
         return isNewTodo
     }
 
@@ -56,7 +56,7 @@ class TodoDetailsActivity : AppCompatActivity() {
         textTitle.text = getString(R.string.new_todo)
     }
 
-    // Set text for a
+    // Set text for an exiting item
     private fun setTodoProperties() {
         editTitle.setText(todo.title)
         textTitle.text = todo.title
