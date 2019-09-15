@@ -1,49 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="@dimen/spacing_half">
 
-    <ImageButton
-        android:id="@+id/image_mode_group"
+    <RelativeLayout
+        android:id="@+id/details_button_group"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_arrow_back_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/text_todo_details_title"
+        app:layout_constraintEnd_toStartOf="@id/details_text_group"
         app:layout_constraintHorizontal_weight="10"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/text_todo_details_title"
+        <ImageButton
+            android:id="@+id/button_back_arrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_arrow_back_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/button_check_mark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_check_black_24dp"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/details_text_group"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/spacing_double"
-        android:textSize="@dimen/text_primary"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="85"
-        app:layout_constraintStart_toEndOf="@+id/image_mode_group"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Todo title" />
+        app:layout_constraintStart_toEndOf="@+id/details_button_group"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/edit_todo_details_title"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/spacing_double"
-        android:textSize="@dimen/text_primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="85"
-        app:layout_constraintStart_toEndOf="@+id/image_mode_group"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Edit title" />
+        <TextView
+            android:id="@+id/text_todo_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/spacing_double"
+            android:paddingEnd="@dimen/spacing_double"
+            android:textSize="@dimen/text_primary" />
+
+        <EditText
+            android:id="@+id/edit_todo_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:hint="@string/edit_title"
+            android:inputType="text"
+            android:paddingStart="@dimen/spacing_double"
+            android:paddingEnd="@dimen/spacing_double"
+            android:textSize="@dimen/text_primary"
+            android:visibility="invisible" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
