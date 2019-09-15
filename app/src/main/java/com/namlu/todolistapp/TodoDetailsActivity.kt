@@ -138,6 +138,22 @@ class TodoDetailsActivity : AppCompatActivity(),
         }
     }
 
+    // Handle config changes
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState != null) {
+            editModeEnabled = savedInstanceState.getBoolean("editMode")
+            if (editModeEnabled) {
+                enableEditMode()
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("editMode", editModeEnabled)
+    }
+
     // Enable edit mode
     private fun enableEditMode() {
         showCheckboxButton()
