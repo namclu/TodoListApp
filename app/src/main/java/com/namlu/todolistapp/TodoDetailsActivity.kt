@@ -53,6 +53,9 @@ class TodoDetailsActivity : AppCompatActivity(),
         buttonCheckMark.setOnClickListener(this)
         textTitle.setOnClickListener(this)
 
+        // Back arrow takes user back to RecyclerView
+        buttonBackArrow.setOnClickListener(this)
+
         // Init an item
         if (getTodoIntent()) {
             // New item, enter Edit mode
@@ -117,6 +120,9 @@ class TodoDetailsActivity : AppCompatActivity(),
                     enableEditMode()
                     editTitle.requestFocus()
                     editTitle.setSelection(editTitle.length())
+                }
+                R.id.button_back_arrow -> {
+                    finish()
                 }
             }
         }
