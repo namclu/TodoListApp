@@ -30,6 +30,7 @@
         android:textColor="@color/text_black"
         android:inputType="textMultiLine"
         android:gravity="start"
-        android:paddingVertical="@dimen/spacing_single"/>
+        android:paddingVertical="@dimen/spacing_single"
+        android:imeOptions="flagNoExtractUi"/>
 
 </LinearLayout>
