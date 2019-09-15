@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,6 +20,20 @@ class TodoListActivity : AppCompatActivity(),
     lateinit var recyclerView: RecyclerView
     lateinit var todoRecyclerAdapter: TodoRecyclerAdapter
     lateinit var floatingActionButton: FloatingActionButton
+
+    // Setup swipe gesture for RecyclerView
+    private var itemTouchHelperCallback: ItemTouchHelper.SimpleCallback =
+        object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+            // Only using onSwiped() atm
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                deleteTodo(todos[viewHolder.adapterPosition])
+            }
+        }
 
     var todos = ArrayList<Todo>()
 
@@ -59,16 +74,24 @@ class TodoListActivity : AppCompatActivity(),
 
     private fun initRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = linearLayoutManager
         todoRecyclerAdapter = TodoRecyclerAdapter(todos, this)
+        // Attach itemTouchHelper to RecyclerView
+        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView)
+        recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = todoRecyclerAdapter
     }
 
+    // Add dummy data
     private fun addTodos() {
         for (i in 0..20) {
             val todo = Todo("Title #$i", "Content #$i", "26 Jan")
             todos.add(todo)
         }
+        todoRecyclerAdapter.notifyDataSetChanged()
+    }
+
+    private fun deleteTodo(todo: Todo) {
+        todos.remove(todo)
         todoRecyclerAdapter.notifyDataSetChanged()
     }
 }
