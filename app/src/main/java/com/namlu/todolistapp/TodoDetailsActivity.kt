@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.namlu.todolistapp.models.Todo
 import com.namlu.todolistapp.persistence.TodoRepository
 import com.namlu.todolistapp.util.Constants
+import com.namlu.todolistapp.util.DateTimeUtil
 
 
 class TodoDetailsActivity : AppCompatActivity(),
@@ -188,8 +189,7 @@ class TodoDetailsActivity : AppCompatActivity(),
         if (temp.isNotEmpty()) {
             finalTodo.title = editTitle.text.toString()
             finalTodo.content = editContent.text.toString()
-            val timestamp = "Jan 2019"
-            finalTodo.timestamp = timestamp
+            finalTodo.timestamp = DateTimeUtil.getCurrentTimestamp()
 
             // If the note was altered, save it.
             if (!finalTodo.content.equals(initialTodo.content) || !finalTodo.title.equals(initialTodo.title)) {
