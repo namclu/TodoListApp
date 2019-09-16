@@ -13,6 +13,7 @@ import com.namlu.todolistapp.adapters.TodoRecyclerAdapter
 import com.namlu.todolistapp.models.Todo
 import com.namlu.todolistapp.persistence.TodoRepository
 import com.namlu.todolistapp.util.Constants
+import com.namlu.todolistapp.util.VertSpacingItemDecorator
 
 
 class TodoListActivity : AppCompatActivity(),
@@ -81,6 +82,7 @@ class TodoListActivity : AppCompatActivity(),
         todoRecyclerAdapter = TodoRecyclerAdapter(todos, this)
         // Attach itemTouchHelper to RecyclerView
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView)
+        recyclerView.addItemDecoration(VertSpacingItemDecorator(24))
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = todoRecyclerAdapter
     }
