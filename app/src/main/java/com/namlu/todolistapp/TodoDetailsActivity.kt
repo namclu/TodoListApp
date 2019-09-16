@@ -212,7 +212,7 @@ class TodoDetailsActivity : AppCompatActivity(),
         if (intent.hasExtra(Constants.SELECTED_TODO_KEY)) {
             // If an existing item, get its data
             initialTodo = intent.getParcelableExtra(Constants.SELECTED_TODO_KEY)
-            finalTodo = intent.getParcelableExtra(Constants.SELECTED_TODO_KEY)
+            finalTodo = Todo(initialTodo.id, initialTodo.title, initialTodo.content, initialTodo.timestamp)
 
             editModeEnabled = false
             isNewTodo = false
@@ -239,7 +239,7 @@ class TodoDetailsActivity : AppCompatActivity(),
     private fun saveChanges() {
         when(isNewTodo) {
             true -> saveNewTodo()
-            else -> updateExistingTodo()
+            else -> updateTodo()
         }
     }
 
@@ -247,8 +247,8 @@ class TodoDetailsActivity : AppCompatActivity(),
         todoRepository.insertTodo(finalTodo)
     }
 
-    private fun updateExistingTodo() {
-        // Todo
+    private fun updateTodo() {
+        todoRepository.updateTodo(finalTodo)
     }
 
     // Set text for a new item

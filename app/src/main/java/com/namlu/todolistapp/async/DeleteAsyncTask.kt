@@ -15,5 +15,4 @@ class DeleteAsyncTask(dao: TodoDao) : AsyncTask<Todo, Unit, Unit>() {
     override fun doInBackground(vararg todos: Todo?) {
         todoDao.delete(todos[0])
     }
-
 }

@@ -5,6 +5,7 @@ import com.namlu.todolistapp.models.Todo
 import androidx.lifecycle.LiveData
 import com.namlu.todolistapp.async.DeleteAsyncTask
 import com.namlu.todolistapp.async.InsertAsyncTask
+import com.namlu.todolistapp.async.UpdateAsyncTask
 
 
 class TodoRepository constructor(context: Context){
@@ -15,11 +16,10 @@ class TodoRepository constructor(context: Context){
     }
 
     fun updateTodo(todo: Todo) {
-
+        UpdateAsyncTask(todoDatabase.getTodoDao()).execute(todo)
     }
 
     fun retrieveTodos(): LiveData<List<Todo>>? {
-
         return todoDatabase.getTodoDao().getTodos()
     }
 

@@ -11,7 +11,7 @@ interface TodoDao {
     fun insert(todo: Todo?)
 
     @Update
-    fun update(todo: Todo): Int
+    fun update(todo: Todo?): Int
 
     @Query("SELECT * FROM todo_table")
     fun getTodos(): LiveData<List<Todo>>

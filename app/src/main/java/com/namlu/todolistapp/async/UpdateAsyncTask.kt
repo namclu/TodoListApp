@@ -4,7 +4,7 @@ import android.os.AsyncTask
 import com.namlu.todolistapp.models.Todo
 import com.namlu.todolistapp.persistence.TodoDao
 
-class InsertAsyncTask(dao: TodoDao) : AsyncTask<Todo, Unit, Unit>() {
+class UpdateAsyncTask(dao: TodoDao) : AsyncTask<Todo, Unit, Unit>() {
 
     private val todoDao: TodoDao
 
@@ -13,6 +13,6 @@ class InsertAsyncTask(dao: TodoDao) : AsyncTask<Todo, Unit, Unit>() {
     }
 
     override fun doInBackground(vararg todos: Todo?) {
-        todoDao.insert(todos[0])
+        todoDao.update(todos[0])
     }
 }
