@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.namlu.todolistapp.adapters.TodoRecyclerAdapter
 import com.namlu.todolistapp.models.Todo
+import com.namlu.todolistapp.persistence.TodoRepository
 import com.namlu.todolistapp.util.Constants
 
 
@@ -20,6 +22,9 @@ class TodoListActivity : AppCompatActivity(),
     lateinit var recyclerView: RecyclerView
     lateinit var todoRecyclerAdapter: TodoRecyclerAdapter
     lateinit var floatingActionButton: FloatingActionButton
+    lateinit var todoRepository: TodoRepository
+
+    var todos = ArrayList<Todo>()
 
     // Setup swipe gesture for RecyclerView
     private var itemTouchHelperCallback: ItemTouchHelper.SimpleCallback =
@@ -35,8 +40,6 @@ class TodoListActivity : AppCompatActivity(),
             }
         }
 
-    var todos = ArrayList<Todo>()
-
     companion object {
         const val TAG = "TodoListActivity"
     }
@@ -48,7 +51,8 @@ class TodoListActivity : AppCompatActivity(),
         // recyclerview stuff
         recyclerView = this.findViewById(R.id.recycler_todo_list)
         initRecyclerView()
-        addTodos()
+        todoRepository = TodoRepository(this)
+        fetchTodos()
 
         // toolbar stuff
         setSupportActionBar(findViewById(R.id.toolbar_todo_list))
@@ -81,17 +85,22 @@ class TodoListActivity : AppCompatActivity(),
         recyclerView.adapter = todoRecyclerAdapter
     }
 
-    // Add dummy data
-    private fun addTodos() {
-        for (i in 0..20) {
-            val todo = Todo("Title #$i", "Content #$i", "26 Jan")
-            todos.add(todo)
-        }
-        todoRecyclerAdapter.notifyDataSetChanged()
-    }
-
     private fun deleteTodo(todo: Todo) {
         todos.remove(todo)
         todoRecyclerAdapter.notifyDataSetChanged()
+    }
+
+    private fun fetchTodos() {
+        todoRepository.retrieveTodos()?.observe(this, object : Observer<List<Todo>> {
+            override fun onChanged(t: List<Todo>?) {
+                if (todos.size > 0) {
+                    todos.clear()
+                }
+                if (!t.isNullOrEmpty()) {
+                    todos.addAll(t)
+                }
+                todoRecyclerAdapter.notifyDataSetChanged()
+            }
+        })
     }
 }
