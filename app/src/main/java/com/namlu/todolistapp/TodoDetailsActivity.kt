@@ -253,8 +253,8 @@ class TodoDetailsActivity : AppCompatActivity(),
 
     // Set text for a new item
     private fun setNewTodoProperties() {
-        editTitle.setText(R.string.new_todo)
-        textTitle.text = getString(R.string.new_todo)
+        editTitle.setText("")
+        textTitle.text = ""
 
         initialTodo = Todo()
         finalTodo = Todo()

@@ -3,6 +3,7 @@ package com.namlu.todolistapp.persistence
 import android.content.Context
 import com.namlu.todolistapp.models.Todo
 import androidx.lifecycle.LiveData
+import com.namlu.todolistapp.async.DeleteAsyncTask
 import com.namlu.todolistapp.async.InsertAsyncTask
 
 
@@ -23,6 +24,6 @@ class TodoRepository constructor(context: Context){
     }
 
     fun deleteTodo(todo: Todo) {
-
+        DeleteAsyncTask(todoDatabase.getTodoDao()).execute(todo)
     }
 }

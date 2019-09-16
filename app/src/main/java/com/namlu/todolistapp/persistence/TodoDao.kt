@@ -17,5 +17,5 @@ interface TodoDao {
     fun getTodos(): LiveData<List<Todo>>
 
     @Delete
-    fun delete(todo: Todo): Int
+    fun delete(todo: Todo?): Int
 }

@@ -86,7 +86,8 @@ class TodoListActivity : AppCompatActivity(),
     }
 
     private fun deleteTodo(todo: Todo) {
-        todos.remove(todo)
+        todoRepository.deleteTodo(todo)
+
         todoRecyclerAdapter.notifyDataSetChanged()
     }
 
