@@ -7,24 +7,24 @@
     android:padding="@dimen/spacing_half">
 
     <RelativeLayout
-        android:id="@+id/details_button_group"
+        android:id="@+id/button_group_toolbar"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/details_text_group"
+        app:layout_constraintEnd_toStartOf="@id/text_group_toolbar"
         app:layout_constraintHorizontal_weight="10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/button_back_arrow"
+            android:id="@+id/button_back_arrow_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_arrow_back_black_24dp" />
 
         <ImageButton
-            android:id="@+id/button_check_mark"
+            android:id="@+id/button_check_mark_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
@@ -33,17 +33,17 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/details_text_group"
+        android:id="@+id/text_group_toolbar"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="85"
-        app:layout_constraintStart_toEndOf="@+id/details_button_group"
+        app:layout_constraintStart_toEndOf="@+id/button_group_toolbar"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/text_todo_details_title"
+            android:id="@+id/text_title_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -52,7 +52,7 @@
             android:textSize="@dimen/text_primary" />
 
         <EditText
-            android:id="@+id/edit_todo_details_title"
+            android:id="@+id/edit_title_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"

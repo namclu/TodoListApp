@@ -23,7 +23,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <EditText
-        android:id="@+id/edit_todo_details"
+        android:id="@+id/edit_content_todo_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="@dimen/text_primary"
