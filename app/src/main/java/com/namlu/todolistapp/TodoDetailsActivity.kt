@@ -20,8 +20,7 @@ class TodoDetailsActivity : AppCompatActivity(),
     View.OnTouchListener,
     GestureDetector.OnGestureListener,
     GestureDetector.OnDoubleTapListener,
-    View.OnClickListener,
-    TextWatcher{
+    TextWatcher {
 
     private lateinit var initialTodo: Todo
     private lateinit var finalTodo: Todo
@@ -31,12 +30,20 @@ class TodoDetailsActivity : AppCompatActivity(),
     private lateinit var todoRepository: TodoRepository
 
     companion object {
-        const val TAG = "TodoDetailsActivity"
+        val TAG: String = TodoDetailsActivity::class.java.simpleName
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_details)
+
+        // Handle config changes
+        if (savedInstanceState != null) {
+            editModeEnabled = savedInstanceState.getBoolean("editMode")
+            if (editModeEnabled) {
+                enableEditMode()
+            }
+        }
 
         // Init other classes
         gestureDetector = GestureDetector(this, this)
@@ -44,12 +51,7 @@ class TodoDetailsActivity : AppCompatActivity(),
 
         // Set listeners
         edit_content_todo_details.setOnTouchListener(this)
-        button_check_mark_toolbar.setOnClickListener(this)
-        text_title_toolbar.setOnClickListener(this)
         edit_title_toolbar.addTextChangedListener(this)
-
-        // Back arrow takes user back to RecyclerView
-        button_back_arrow_toolbar.setOnClickListener(this)
 
         // Init an item
         if (getTodoIntent()) {
@@ -60,6 +62,8 @@ class TodoDetailsActivity : AppCompatActivity(),
             // Existing item, enter View mode
             setTodoProperties()
         }
+
+        setupToolbar()
     }
 
     // Callback for View.OnTouchListener
@@ -104,25 +108,6 @@ class TodoDetailsActivity : AppCompatActivity(),
         return false
     }
 
-    // Callback for View.OnClickListener
-    override fun onClick(view: View?) {
-        if (view != null) {
-            when (view.id) {
-                R.id.button_check_mark_toolbar -> {
-                    disableEditMode()
-                }
-                    R.id.text_title_toolbar -> {
-                    enableEditMode()
-                    edit_title_toolbar.requestFocus()
-                        edit_title_toolbar.setSelection(edit_title_toolbar.length())
-                }
-                R.id.button_back_arrow_toolbar -> {
-                    finish()
-                }
-            }
-        }
-    }
-
     // Callbacks for TextWatcher
     override fun afterTextChanged(s: Editable?) {
     }
@@ -138,21 +123,13 @@ class TodoDetailsActivity : AppCompatActivity(),
     // Else when not in edit mode, back pressed will dismiss screen as per usual
     override fun onBackPressed() {
         if (editModeEnabled) {
-            onClick(button_check_mark_toolbar)
-        } else {
-            super.onBackPressed()
-        }
-    }
-
-    // Handle config changes
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-        if (savedInstanceState != null) {
-            editModeEnabled = savedInstanceState.getBoolean("editMode")
-            if (editModeEnabled) {
-                enableEditMode()
+            button_check_mark_toolbar.setOnClickListener {
+                disableEditMode()
+                return@setOnClickListener
             }
         }
+
+        super.onBackPressed()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -169,7 +146,7 @@ class TodoDetailsActivity : AppCompatActivity(),
         editModeEnabled = false
 
         // Check if anything was typed into the item. Don't save if title or content is empty
-        var temp = edit_content_todo_details.getText().toString()
+        var temp = edit_content_todo_details.text.toString()
         temp = temp.replace("\n", "")
         temp = temp.replace(" ", "")
         if (temp.isNotEmpty()) {
@@ -223,7 +200,7 @@ class TodoDetailsActivity : AppCompatActivity(),
 
     // Save either a new item or an existing item
     private fun saveChanges() {
-        when(isNewTodo) {
+        when (isNewTodo) {
             true -> saveNewTodo()
             else -> updateTodo()
         }
@@ -251,5 +228,25 @@ class TodoDetailsActivity : AppCompatActivity(),
         edit_title_toolbar.setText(initialTodo.title)
         text_title_toolbar.text = initialTodo.title
         edit_content_todo_details.setText(initialTodo.content)
+    }
+
+    // Setup toolbar click listeners
+    private fun setupToolbar() {
+        // Setup check mark
+        button_check_mark_toolbar.setOnClickListener {
+            disableEditMode()
+        }
+
+        // Setup back arrow
+        button_back_arrow_toolbar.setOnClickListener {
+            finish()
+        }
+
+        // Setup text title
+        text_title_toolbar.setOnClickListener {
+            enableEditMode()
+            edit_title_toolbar.requestFocus()
+            edit_title_toolbar.setSelection(edit_title_toolbar.length())
+        }
     }
 }

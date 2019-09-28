@@ -65,7 +65,6 @@ class TodoListActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
             }
-
         })
         recyclerView.adapter = todoRecyclerAdapter
 
