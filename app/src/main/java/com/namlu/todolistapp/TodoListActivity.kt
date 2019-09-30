@@ -1,6 +1,5 @@
 package com.namlu.todolistapp
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -11,7 +10,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.namlu.todolistapp.adapters.TodoRecyclerAdapter
 import com.namlu.todolistapp.models.Todo
 import com.namlu.todolistapp.persistence.TodoRepository
-import com.namlu.todolistapp.util.Constants
 import com.namlu.todolistapp.util.VertSpacingItemDecorator
 
 
@@ -60,10 +58,7 @@ class TodoListActivity : AppCompatActivity() {
 
         todoRecyclerAdapter = TodoRecyclerAdapter(todos, object: TodoRecyclerAdapter.OnTodoListener{
             override fun onTodoClick(position: Int) {
-                val intent = Intent(this@TodoListActivity, TodoDetailsActivity::class.java).apply {
-                    putExtra(Constants.SELECTED_TODO_KEY, todos[position])
-                }
-                startActivity(intent)
+                TodoDetailsActivity.intentLaunchEditTodo(this@TodoListActivity, todos[position])
             }
         })
         recyclerView.adapter = todoRecyclerAdapter
@@ -90,8 +85,7 @@ class TodoListActivity : AppCompatActivity() {
     private fun setupFab() {
         floatingActionButton = findViewById(R.id.fab_add_todo)
         floatingActionButton.setOnClickListener {
-            val intent = Intent(this@TodoListActivity, TodoDetailsActivity::class.java)
-            startActivity(intent)
+            TodoDetailsActivity.intentLaunchCreateTodo(this@TodoListActivity)
         }
     }
 

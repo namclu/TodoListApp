@@ -1,5 +1,7 @@
 package com.namlu.todolistapp
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -31,6 +33,18 @@ class TodoDetailsActivity : AppCompatActivity(),
 
     companion object {
         val TAG: String = TodoDetailsActivity::class.java.simpleName
+
+        fun intentLaunchCreateTodo(context: Context) {
+            val intent = Intent(context, TodoDetailsActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        fun intentLaunchEditTodo(context: Context, todo: Todo) {
+            val intent = Intent(context, TodoDetailsActivity::class.java).apply {
+                putExtra(Constants.SELECTED_TODO_KEY, todo)
+            }
+            context.startActivity(intent)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
